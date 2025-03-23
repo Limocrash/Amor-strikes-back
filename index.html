@@ -30,10 +30,51 @@
             align-items: center;
             justify-content: center;
             min-height: 70px;
+            cursor: pointer;
         }
         .expense { background-color: #34a853; }
         .loan { background-color: #fbbc05; }
         .repay { background-color: #ea4335; }
+        
+        /* Dialog styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .dialog {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+        }
+        .dialog h2 {
+            margin-top: 0;
+        }
+        .dialog-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .dialog-button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4285f4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
         h1 {
             text-align: center;
             margin-bottom: 30px;
@@ -43,9 +84,37 @@
 <body>
     <div class="container">
         <h1>Budget Tracker</h1>
-        <a href="https://forms.gle/D5sNv85HYtsEurA47" class="button expense">Record Expense</a>
-        <a href="https://forms.gle/j3t8CHuKvNKKitZF6" class="button loan">Record New Loan</a>
-        <a href="https://forms.gle/BUm2rhAkKbqzfJ2k8" class="button repay">Record Loan Repayment</a>
+        <a href="YOUR_EXPENSE_FORM_URL" class="button expense">Record Expense</a>
+        <div class="button loan" onclick="showLoanDialog()">Record New Loan</div>
+        <a href="YOUR_LOAN_REPAYMENT_FORM_URL" class="button repay">Record Loan Repayment</a>
     </div>
+    
+    <!-- Loan Type Dialog -->
+    <div class="dialog-overlay" id="loanDialog">
+        <div class="dialog">
+            <h2>Is this loan for:</h2>
+            <div class="dialog-buttons">
+                <button class="dialog-button" onclick="navigateTo('YOUR_EXISTING_BORROWER_LOAN_FORM_URL')">Existing Borrower</button>
+                <button class="dialog-button" onclick="navigateTo('YOUR_NEW_BORROWER_LOAN_FORM_URL')">New Borrower</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showLoanDialog() {
+            document.getElementById('loanDialog').style.display = 'flex';
+        }
+        
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+        
+        // Close dialog if user clicks outside of it
+        document.getElementById('loanDialog').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
