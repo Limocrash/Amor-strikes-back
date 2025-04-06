@@ -50,6 +50,7 @@
             margin-bottom: 20px;
             font-size: 2.5rem;
             text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
+            animation: glow 3s infinite;
         }
         
         .subtitle {
@@ -198,38 +199,26 @@
             width: 100%;
         }
         
-        /* Loading animation */
-        .dashboard-loading {
-            display: none;
-            margin: 20px auto;
-            text-align: center;
+        /* Animation */
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(255, 232, 31, 0.9); }
+            100% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
         }
         
-        .loading-icon {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 232, 31, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            margin-top: 10px;
-            color: var(--primary-color);
-        }
-        
-        /* Last updated info */
-        .last-update {
-            text-align: center;
-            color: #777;
-            font-size: 0.8rem;
-            margin-top: 20px;
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .forms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .form-content {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -306,24 +295,18 @@
         <!-- Dashboard Links -->
         <div class="dashboard-section">
             <div class="dashboard-links">
-                <a href="DASHBOARD_WEB_APP_URL" class="dashboard-link" id="dashboardLink" target="_blank">
+                <a href="loading.html?redirect=DASHBOARD_URL" class="dashboard-link" id="dashboardLink" target="_blank">
                     <i class="fas fa-tachometer-alt"></i> Full Dashboard
                 </a>
-                <a href="DASHBOARD_WEB_APP_URL?view=expenses" class="dashboard-link" id="expensesLink" target="_blank">
+                <a href="loading.html?redirect=DASHBOARD_URL?view=expenses" class="dashboard-link" id="expensesLink" target="_blank">
                     <i class="fas fa-receipt"></i> Expenses
                 </a>
-                <a href="DASHBOARD_WEB_APP_URL?view=loans" class="dashboard-link" id="loansLink" target="_blank">
+                <a href="loading.html?redirect=DASHBOARD_URL?view=loans" class="dashboard-link" id="loansLink" target="_blank">
                     <i class="fas fa-hand-holding-dollar"></i> Loans
                 </a>
-                <a href="DASHBOARD_WEB_APP_URL?view=categories" class="dashboard-link" id="categoriesLink" target="_blank">
+                <a href="loading.html?redirect=DASHBOARD_URL?view=categories" class="dashboard-link" id="categoriesLink" target="_blank">
                     <i class="fas fa-pie-chart"></i> Categories
                 </a>
-            </div>
-            
-            <!-- Loading animation -->
-            <div class="dashboard-loading" id="dashboardLoading">
-                <div class="loading-icon"></div>
-                <div class="loading-text">Loading dashboard data...</div>
             </div>
             
             <div class="last-update" id="lastUpdate"></div>
@@ -341,10 +324,10 @@
         // Initialize dashboard links
         document.addEventListener('DOMContentLoaded', function() {
             // Set dashboard URLs
-            document.getElementById('dashboardLink').href = DASHBOARD_URL;
-            document.getElementById('expensesLink').href = DASHBOARD_URL + "?view=expenses";
-            document.getElementById('loansLink').href = DASHBOARD_URL + "?view=loans";
-            document.getElementById('categoriesLink').href = DASHBOARD_URL + "?view=categories";
+            document.getElementById('dashboardLink').href = "loading.html?redirect=" + DASHBOARD_URL;
+            document.getElementById('expensesLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=expenses";
+            document.getElementById('loansLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=loans";
+            document.getElementById('categoriesLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=categories";
             
             // Set last updated time
             updateLastUpdatedTime();
@@ -352,30 +335,15 @@
             // Add event listeners
             document.getElementById('loadDashboardBtn').addEventListener('click', function(e) {
                 e.preventDefault();
-                window.open(DASHBOARD_URL, '_blank');
+                window.open("loading.html?redirect=" + DASHBOARD_URL, '_blank');
             });
             
             document.getElementById('refreshDashboardBtn').addEventListener('click', function(e) {
                 e.preventDefault();
-                showLoading();
-                // Simulate refresh - in a real app, this would call an API
-                setTimeout(function() {
-                    hideLoading();
-                    updateLastUpdatedTime();
-                    alert("Dashboard data refreshed successfully!");
-                }, 2000);
+                // Redirect to loading page, which will then go to dashboard with a cache-busting parameter
+                window.open("loading.html?redirect=" + DASHBOARD_URL + "?refresh=" + new Date().getTime(), '_blank');
             });
         });
-        
-        // Show loading animation
-        function showLoading() {
-            document.getElementById('dashboardLoading').style.display = 'block';
-        }
-        
-        // Hide loading animation
-        function hideLoading() {
-            document.getElementById('dashboardLoading').style.display = 'none';
-        }
         
         // Update last updated time
         function updateLastUpdatedTime() {
@@ -386,28 +354,3 @@
     </script>
 </body>
 </html>
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .forms-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .form-content {
-                padding: 15px;
-            }
-        }
-        
-        /* Animation */
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
-            50% { text-shadow: 0 0 20px rgba(255, 232, 31, 0.9); }
-            100% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
-        }
-        
-        .logo {
-            animation: glow 3s infinite;
-        }
