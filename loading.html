@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor Strikes Back - Loading</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+        
+        .space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 500px;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: fly 5s linear infinite;
+        }
+        
+        @keyframes fly {
+            0% {
+                transform: translateZ(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateZ(1000px);
+                opacity: 0;
+            }
+        }
+        
+        .logo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            perspective: 400px;
+            z-index: 2;
+        }
+        
+        .logo {
+            color: #FFE81F;
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            transform-style: preserve-3d;
+            animation: logoAnimation 20s linear infinite;
+            text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
+        }
+        
+        @keyframes logoAnimation {
+            0% {
+                transform: rotateX(25deg) translateZ(0) scale(1.5);
+                opacity: 1;
+            }
+            50% {
+                transform: rotateX(25deg) translateZ(-200px) scale(0.5);
+                opacity: 0.7;
+            }
+            100% {
+                transform: rotateX(25deg) translateZ(0) scale(1.5);
+                opacity: 1;
+            }
+        }
+        
+        .loading-text {
+            color: #4BD5EE;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        .progress-container {
+            margin-top: 30px;
+            width: 300px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #FFE81F;
+            animation: progressAnimation 30s linear forwards;
+        }
+        
+        @keyframes progressAnimation {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="space" id="space"></div>
+    
+    <div class="logo-container">
+        <div class="logo">AMOR STRIKES BACK</div>
+        <div class="loading-text">Loading Budget Data...</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Create stars
+        const space = document.getElementById('space');
+        const starCount = 200;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Random position
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            
+            // Random size
+            const size = Math.random() * 2 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            
+            // Random animation delay
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            
+            space.appendChild(star);
+        }
+        
+        // Redirect to the actual page after animation completes
+        setTimeout(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectUrl = urlParams.get('redirect') || 'dashboard.html';
+            window.location.href = redirectUrl;
+        }, 30000); // 30 seconds, matching the progress bar animation
+    </script>
+</body>
+</html>
