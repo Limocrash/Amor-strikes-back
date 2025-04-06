@@ -66,7 +66,7 @@
             font-size: 3rem;
             font-weight: bold;
             transform-style: preserve-3d;
-            animation: logoAnimation 20s linear infinite;
+            animation: logoAnimation 4s linear infinite;
             text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
         }
         
@@ -159,9 +159,23 @@
         // Redirect to the actual page after animation completes
         setTimeout(function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const redirectUrl = urlParams.get('redirect') || 'dashboard.html';
-            window.location.href = redirectUrl;
-        }, 4000); // 30 seconds, matching the progress bar animation
+            let redirectUrl = urlParams.get('redirect');
+            
+            // If redirect contains a query parameter itself (like ?view=expenses)
+            // we need to handle it properly
+            if (redirectUrl && redirectUrl.includes('?')) {
+                // Fix the URL encoding issues with nested parameters
+                const baseUrl = redirectUrl.split('?')[0];
+                const params = redirectUrl.split('?')[1];
+                redirectUrl = baseUrl + '?' + params;
+            }
+            
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else {
+                window.location.href = 'index.html'; // Fallback to index if no redirect
+            }
+        }, 4000); // 4 seconds
     </script>
 </body>
 </html>
