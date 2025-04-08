@@ -23,6 +23,14 @@
             height: 100%;
             perspective: 500px;
             z-index: 1;
+            /* Add animation to fade out the entire space container */
+            animation: fadeOutSpace 4s ease-in forwards;
+        }
+        
+        @keyframes fadeOutSpace {
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
         }
         
         .star {
@@ -31,7 +39,7 @@
             height: 2px;
             background-color: #fff;
             border-radius: 50%;
-            animation: fly 5s linear infinite;
+            animation: fly 5s linear;  /* Removed 'infinite' */
         }
         
         @keyframes fly {
@@ -127,8 +135,10 @@
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
             
-            // Random animation delay
-            star.style.animationDelay = `${Math.random() * 5}s`;
+            // Random animation delay - make sure they all finish within our 4 second window
+            const delay = Math.random() * 2; // Max 2 seconds delay
+            star.style.animationDelay = `${delay}s`;
+            star.style.animationDuration = `${4 - delay}s`; // Ensure all animations complete within 4s
             
             space.appendChild(star);
         }
