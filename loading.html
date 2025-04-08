@@ -3,46 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amor Strikes Back - Loading</title>
+    <title>Amor Strikes Back: Family Budget System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/Limocrash/Amor-strikes-back@main/favicon.ico" type="image/x-icon">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #000;
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-color: #FFE81F; /* Star Wars yellow */
+            --bg-color: #000;
+            --text-color: #FFF;
+            --card-bg: rgba(30, 30, 30, 0.9);
+            --accent-color: #4BD5EE; /* Light blue accent */
+            --rebel-red: #E51013;
+            --empire-blue: #0B60AB;
         }
         
-        .space {
+        @font-face {
+            font-family: 'Star Jedi';
+            src: url('https://cdn.jsdelivr.net/gh/Limocrash/Amor-strikes-back@main/fonts/Starjedi.ttf') format('truetype');
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image: url('https://cdn.jsdelivr.net/gh/Limocrash/Amor-strikes-back@main/images/stars.jpg');
+            background-size: cover;
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in forwards 4s; /* Fade in after 4 seconds */
+        }
+        
+        /* Initial loading animation container */
+        #initial-loader {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-out forwards 3.5s; /* Fade out at 3.5 seconds */
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .star-wars-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Logo and Header */
+        .logo {
+            font-family: 'Star Jedi', sans-serif;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
+            animation: glow 3s infinite;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            margin-top: -15px;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            text-align: center;
+        }
+        
+        /* Forms Grid */
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 40px;
+        }
+        
+        .form-section {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 232, 31, 0.3);
+            border-color: var(--primary-color);
+        }
+        
+        .section-header {
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--bg-color);
+            border-bottom: 3px solid #333;
+        }
+        
+        .jedi-header {
+            background: linear-gradient(135deg, var(--rebel-red), #FF5722);
+        }
+        
+        .empire-header {
+            background: linear-gradient(135deg, var(--empire-blue), #0288D1);
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-color), orange);
+            color: #000;
+        }
+        
+        .form-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            border: 1px solid transparent;
+        }
+        
+        .form-item:hover {
+            background: rgba(50, 50, 50, 0.5);
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .form-item i {
+            font-size: 24px;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .form-item.jedi-item:hover i {
+            color: var(--rebel-red);
+        }
+        
+        .form-item.empire-item:hover i {
+            color: var(--empire-blue);
+        }
+        
+        .form-item.dashboard-item:hover i {
+            color: var(--primary-color);
+        }
+        
+        /* Dashboard Section */
+        .dashboard-section {
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .dashboard-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .dashboard-link {
+            padding: 12px 25px;
+            border-radius: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--text-color);
+            text-decoration: none;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dashboard-link:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #999;
+            width: 100%;
+        }
+        
+        /* Animation */
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(255, 232, 31, 0.9); }
+            100% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
+        }
+        
+        /* Space background for initial loader */
+        .space-stars {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             perspective: 500px;
             z-index: 1;
-            /* Add animation to fade out the entire space container */
-            animation: fadeOutSpace 4s ease-in forwards;
         }
         
-        @keyframes fadeOutSpace {
-            0% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-        
-        .star {
+        .intro-star {
             position: absolute;
             width: 2px;
             height: 2px;
             background-color: #fff;
             border-radius: 50%;
-            animation: fly 5s linear;  /* Removed 'infinite' */
+            animation: flyStars 5s linear;
         }
         
-        @keyframes fly {
+        @keyframes flyStars {
             0% {
                 transform: translateZ(0);
                 opacity: 0;
@@ -59,27 +263,28 @@
             }
         }
         
-        .logo-container {
+        /* Initial loader content */
+        .initial-loader-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            perspective: 400px;
-            z-index: 2;
             text-align: center;
+            z-index: 2;
         }
         
-        .logo {
+        .initial-logo {
             color: #FFE81F;
+            text-align: center;
             font-size: 3rem;
             font-weight: bold;
+            font-family: 'Star Jedi', sans-serif;
             transform-style: preserve-3d;
-            animation: logoAnimation 4s ease-in forwards;
+            animation: initialLogoAnimation 3.5s ease-in forwards;
             text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
-            margin-bottom: 0;
         }
         
-        @keyframes logoAnimation {
+        @keyframes initialLogoAnimation {
             0% {
                 transform: rotateX(25deg) translateZ(0) scale(1.5);
                 opacity: 1;
@@ -94,37 +299,136 @@
             }
         }
         
-        .loading-text {
-            color: #4BD5EE;
-            text-align: center;
-            font-size: 1.2rem;
-            margin-top: 120px;
-            animation: fadeOut 4s ease-in forwards;
-        }
-        
-        @keyframes fadeOut {
-            0% { opacity: 0.5; }
-            70% { opacity: 1; }
-            100% { opacity: 0; }
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .forms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .form-content {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="space" id="space"></div>
-    
-    <div class="logo-container">
-        <div class="logo">AMOR STRIKES BACK</div>
-        <div class="loading-text">Loading Budget Data...</div>
+    <!-- Initial loading animation -->
+    <div id="initial-loader">
+        <div class="space-stars" id="space-stars"></div>
+        <div class="initial-loader-content">
+            <div class="initial-logo">AMOR STRIKES BACK</div>
+        </div>
+    </div>
+
+    <div class="star-wars-container">
+        <div class="logo">Amor Strikes Back</div>
+        <div class="subtitle">A New Hope for Family Budget Management</div>
+        
+        <div class="forms-grid">
+            <!-- Regular Expenses Section -->
+            <div class="form-section">
+                <div class="section-header jedi-header">Regular Expenses</div>
+                <div class="form-content">
+                    <a href="https://forms.gle/fGJRmqx3cbGad4Zh6" class="form-item jedi-item" target="_blank">
+                        <i class="fas fa-receipt"></i>
+                        <div>
+                            <strong>Quick Expense Entry</strong>
+                            <div>Record a new expense with receipt</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Loans Section -->
+            <div class="form-section">
+                <div class="section-header empire-header">Loans (Utang)</div>
+                <div class="form-content">
+                    <a href="https://forms.gle/7mgjCTzMnhWzASM9A" class="form-item empire-item" target="_blank">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <div>
+                            <strong>New Loan - Existing Borrower</strong>
+                            <div>Create loan to someone already in system</div>
+                        </div>
+                    </a>
+                    <a href="https://forms.gle/QbsBHuAhv8bFqmCm8" class="form-item empire-item" target="_blank">
+                        <i class="fas fa-user-plus"></i>
+                        <div>
+                            <strong>New Loan - New Borrower</strong>
+                            <div>Create loan to new person not in system</div>
+                        </div>
+                    </a>
+                    <a href="https://forms.gle/tgWMttua3vymbqWdA" class="form-item empire-item" target="_blank">
+                        <i class="fas fa-money-bill-transfer"></i>
+                        <div>
+                            <strong>Loan Repayment</strong>
+                            <div>Record payment received for a loan</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div class="form-section">
+                <div class="section-header dashboard-header">Budget Dashboard</div>
+                <div class="form-content">
+                    <a href="#" class="form-item dashboard-item" id="loadDashboardBtn">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <strong>View Dashboard</strong>
+                            <div>See budget summary and reports</div>
+                        </div>
+                    </a>
+                    <a href="#" class="form-item dashboard-item" id="refreshDashboardBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        <div>
+                            <strong>Refresh Data</strong>
+                            <div>Update dashboard with latest data</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Links -->
+        <div class="dashboard-section">
+            <div class="dashboard-links">
+                <a href="#" class="dashboard-link" id="dashboardLink" target="_blank">
+                    <i class="fas fa-tachometer-alt"></i> Full Dashboard
+                </a>
+                <a href="#" class="dashboard-link" id="expensesLink" target="_blank">
+                    <i class="fas fa-receipt"></i> Expenses
+                </a>
+                <a href="#" class="dashboard-link" id="loansLink" target="_blank">
+                    <i class="fas fa-hand-holding-dollar"></i> Loans
+                </a>
+                <a href="#" class="dashboard-link" id="categoriesLink" target="_blank">
+                    <i class="fas fa-pie-chart"></i> Categories
+                </a>
+            </div>
+            
+            <div class="last-update" id="lastUpdate"></div>
+        </div>
+        
+        <footer>
+            <p>Family Budget System &copy; 2025 | Created with <i class="fas fa-heart" style="color: var(--rebel-red);"></i> by David Purdy for Amor</p>
+        </footer>
     </div>
     
     <script>
-        // Create stars
-        const space = document.getElementById('space');
+        // Dashboard Web App URL - Replace with your actual Web App URL
+        const DASHBOARD_URL = "https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec";
+        
+        // Create stars for intro animation
+        const spaceStars = document.getElementById('space-stars');
         const starCount = 200;
         
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
-            star.className = 'star';
+            star.className = 'intro-star';
             
             // Random position
             star.style.left = `${Math.random() * 100}%`;
@@ -135,34 +439,44 @@
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
             
-            // Random animation delay - make sure they all finish within our 4 second window
-            const delay = Math.random() * 2; // Max 2 seconds delay
+            // Random animation delay - keep within our 3.5 second window
+            const delay = Math.random() * 1.5;
             star.style.animationDelay = `${delay}s`;
-            star.style.animationDuration = `${4 - delay}s`; // Ensure all animations complete within 4s
+            star.style.animationDuration = `${3.5 - delay}s`;
             
-            space.appendChild(star);
+            spaceStars.appendChild(star);
         }
         
-        // Redirect to the actual page after animation completes
-        setTimeout(function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let redirectUrl = urlParams.get('redirect');
+        // Initialize dashboard links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set dashboard URLs
+            document.getElementById('dashboardLink').href = "loading.html?redirect=" + DASHBOARD_URL;
+            document.getElementById('expensesLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=expenses";
+            document.getElementById('loansLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=loans";
+            document.getElementById('categoriesLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=categories";
             
-            // If redirect contains a query parameter itself (like ?view=expenses)
-            // we need to handle it properly
-            if (redirectUrl && redirectUrl.includes('?')) {
-                // Fix the URL encoding issues with nested parameters
-                const baseUrl = redirectUrl.split('?')[0];
-                const params = redirectUrl.split('?')[1];
-                redirectUrl = baseUrl + '?' + params;
-            }
+            // Set last updated time
+            updateLastUpdatedTime();
             
-            if (redirectUrl) {
-                window.location.href = redirectUrl;
-            } else {
-                window.location.href = 'index.html'; // Fallback to index if no redirect
-            }
-        }, 4000); // 4 seconds
+            // Add event listeners
+            document.getElementById('loadDashboardBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open("loading.html?redirect=" + DASHBOARD_URL, '_blank');
+            });
+            
+            document.getElementById('refreshDashboardBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Redirect to loading page, which will then go to dashboard with a cache-busting parameter
+                window.open("loading.html?redirect=" + DASHBOARD_URL + "?refresh=" + new Date().getTime(), '_blank');
+            });
+        });
+        
+        // Update last updated time
+        function updateLastUpdatedTime() {
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            document.getElementById('lastUpdate').textContent = 'Last updated: ' + formattedDate;
+        }
     </script>
 </body>
 </html>
