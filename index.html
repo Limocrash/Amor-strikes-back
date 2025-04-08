@@ -275,10 +275,106 @@
             }
         }
     </style>
+    <style>
+    /* Initial loader animations - fixed version */
+    #initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 9999;
+        animation: fadeOut 0.5s ease-out forwards 3.5s; /* Fade out at 3.5 seconds */
+    }
+    
+    @keyframes fadeOut {
+        0% { opacity: 1; }
+        100% { opacity: 0; visibility: hidden; }
+    }
+    
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    
+    .initial-loader-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        perspective: 400px;
+    }
+    
+    .initial-logo {
+        color: #FFE81F;
+        text-align: center;
+        font-size: 3rem;
+        font-weight: bold;
+        font-family: 'Star Jedi', sans-serif;
+        transform-style: preserve-3d;
+        animation: initialLogoAnimation 4s ease-in forwards;
+        text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
+    }
+    
+    @keyframes initialLogoAnimation {
+        0% {
+            transform: rotateX(25deg) translateZ(0) scale(1.5);
+            opacity: 1;
+        }
+        85% {
+            transform: rotateX(25deg) translateZ(-400px) scale(0.3);
+            opacity: 0.7;
+        }
+        100% {
+            transform: rotateX(25deg) translateZ(-600px) scale(0.1);
+            opacity: 0;
+        }
+    }
+    
+    /* Fix for stars */
+    .space-intro {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        perspective: 500px;
+        z-index: 1000;
+    }
+    
+    .star-intro {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: flyStar 5s linear infinite;
+    }
+    
+    @keyframes flyStar {
+        0% {
+            transform: translateZ(0);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateZ(1000px);
+            opacity: 0;
+        }
+    }
+</style>
 </head>
 <body>
     <!-- Initial loading animation -->
     <div id="initial-loader">
+        <div class="space-intro" id="space-intro"></div>
         <div class="initial-loader-content">
             <div class="initial-logo">AMOR STRIKES BACK</div>
         </div>
@@ -413,5 +509,29 @@
             document.getElementById('lastUpdate').textContent = 'Last updated: ' + formattedDate;
         }
     </script>
+    <script>
+    // Create stars for intro animation
+    const spaceIntro = document.getElementById('space-intro');
+    const starCountIntro = 200;
+    
+    for (let i = 0; i < starCountIntro; i++) {
+        const star = document.createElement('div');
+        star.className = 'star-intro';
+        
+        // Random position
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random size
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random animation delay
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        
+        spaceIntro.appendChild(star);
+    }
+</script>
 </body>
 </html>
