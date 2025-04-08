@@ -58,16 +58,17 @@
             transform: translate(-50%, -50%);
             perspective: 400px;
             z-index: 2;
+            text-align: center;
         }
         
         .logo {
             color: #FFE81F;
-            text-align: center;
             font-size: 3rem;
             font-weight: bold;
             transform-style: preserve-3d;
-            animation: logoAnimation 4s linear infinite;
+            animation: logoAnimation 4s ease-in forwards;
             text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
+            margin-bottom: 0;
         }
         
         @keyframes logoAnimation {
@@ -75,13 +76,13 @@
                 transform: rotateX(25deg) translateZ(0) scale(1.5);
                 opacity: 1;
             }
-            50% {
-                transform: rotateX(25deg) translateZ(-200px) scale(0.5);
+            85% {
+                transform: rotateX(25deg) translateZ(-400px) scale(0.3);
                 opacity: 0.7;
             }
             100% {
-                transform: rotateX(25deg) translateZ(0) scale(1.5);
-                opacity: 1;
+                transform: rotateX(25deg) translateZ(-600px) scale(0.1);
+                opacity: 0;
             }
         }
         
@@ -89,35 +90,14 @@
             color: #4BD5EE;
             text-align: center;
             font-size: 1.2rem;
-            margin-top: 20px;
-            animation: pulse 2s infinite;
+            margin-top: 120px;
+            animation: fadeOut 4s ease-in forwards;
         }
         
-        @keyframes pulse {
+        @keyframes fadeOut {
             0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-        
-        .progress-container {
-            margin-top: 30px;
-            width: 300px;
-            height: 6px;
-            background-color: #333;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: #FFE81F;
-            animation: progressAnimation 4s linear forwards;
-        }
-        
-        @keyframes progressAnimation {
-            0% { width: 0%; }
-            100% { width: 100%; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
@@ -127,9 +107,6 @@
     <div class="logo-container">
         <div class="logo">AMOR STRIKES BACK</div>
         <div class="loading-text">Loading Budget Data...</div>
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
     </div>
     
     <script>
