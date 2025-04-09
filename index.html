@@ -103,10 +103,6 @@
             background: linear-gradient(135deg, var(--empire-blue), #0288D1);
         }
         
-        .neutral-header {
-            background: linear-gradient(135deg, #9C27B0, #673AB7);
-        }
-        
         .dashboard-header {
             background: linear-gradient(135deg, var(--primary-color), orange);
             color: #000;
@@ -206,6 +202,26 @@
             100% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
         }
         
+        /* Direct access button */
+        .direct-access-button {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: #000;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .direct-access-button:hover {
+            background-color: #FFD700;
+            transform: scale(1.02);
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .forms-grid {
@@ -237,6 +253,13 @@
                         <div>
                             <strong>Quick Expense Entry</strong>
                             <div>Record a new expense with receipt</div>
+                        </div>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets/d/1dndQnQm5a2uDvUWPtyaIYKDKULyYrLfbC-R_MQ_pCTA/edit#gid=1971355678" class="form-item jedi-item" target="_blank">
+                        <i class="fas fa-table"></i>
+                        <div>
+                            <strong>View Recent Expenses</strong>
+                            <div>See the last 100 expense entries</div>
                         </div>
                     </a>
                 </div>
@@ -292,19 +315,25 @@
             </div>
         </div>
         
+        <!-- Direct Access to ExpensesView -->
+        <a href="https://docs.google.com/spreadsheets/d/1dndQnQm5a2uDvUWPtyaIYKDKULyYrLfbC-R_MQ_pCTA/edit#gid=1971355678" 
+           class="direct-access-button" target="_blank">
+            <i class="fas fa-eye"></i> Direct Access to Recent Expenses List (Last 100)
+        </a>
+        
         <!-- Dashboard Links -->
         <div class="dashboard-section">
             <div class="dashboard-links">
-                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec" class="dashboard-link" id="dashboardLink" target="_blank">
+                <a href="https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec" class="dashboard-link" target="_blank">
                     <i class="fas fa-tachometer-alt"></i> Full Dashboard
                 </a>
-                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=expenses" class="dashboard-link" id="expensesLink" target="_blank">
+                <a href="https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=expenses" class="dashboard-link" target="_blank">
                     <i class="fas fa-receipt"></i> Expenses
                 </a>
-                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=loans" class="dashboard-link" id="loansLink" target="_blank">
+                <a href="https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=loans" class="dashboard-link" target="_blank">
                     <i class="fas fa-hand-holding-dollar"></i> Loans
                 </a>
-                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=categories" class="dashboard-link" id="categoriesLink" target="_blank">
+                <a href="https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=categories" class="dashboard-link" target="_blank">
                     <i class="fas fa-pie-chart"></i> Categories
                 </a>
             </div>
@@ -318,39 +347,30 @@
     </div>
     
     <script>
-        // Dashboard Web App URL - Replace with your actual Web App URL
-        const DASHBOARD_URL = "https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec";
-        
-        // Initialize dashboard links
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set dashboard URLs
-            document.getElementById('dashboardLink').href = "loading.html?redirect=" + DASHBOARD_URL;
-            document.getElementById('expensesLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=expenses";
-            document.getElementById('loansLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=loans";
-            document.getElementById('categoriesLink').href = "loading.html?redirect=" + DASHBOARD_URL + "?view=categories";
-            
-            // Set last updated time
-            updateLastUpdatedTime();
-            
-            // Add event listeners
-            document.getElementById('loadDashboardBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open("loading.html?redirect=" + DASHBOARD_URL, '_blank');
-            });
-            
-            document.getElementById('refreshDashboardBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                // Redirect to loading page, which will then go to dashboard with a cache-busting parameter
-                window.open("loading.html?redirect=" + DASHBOARD_URL + "?refresh=" + new Date().getTime(), '_blank');
-            });
-        });
-        
         // Update last updated time
         function updateLastUpdatedTime() {
             const now = new Date();
             const formattedDate = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
             document.getElementById('lastUpdate').textContent = 'Last updated: ' + formattedDate;
         }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set last updated time
+            updateLastUpdatedTime();
+            
+            // Add event listeners
+            document.getElementById('loadDashboardBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open("https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec", '_blank');
+            });
+            
+            document.getElementById('refreshDashboardBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Redirect to dashboard with a cache-busting parameter
+                window.open("https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?refresh=" + new Date().getTime(), '_blank');
+            });
+        });
     </script>
 </body>
 </html>
