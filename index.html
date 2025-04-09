@@ -32,30 +32,6 @@
             color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in forwards 4s; /* Fade in after 4 seconds */
-        }
-        
-        /* Initial loading animation container */
-        #initial-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            z-index: 9999;
-            animation: fadeOut 0.5s ease-out forwards 3.5s; /* Fade out at 3.5 seconds */
-        }
-        
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-        
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
         }
         
         .star-wars-container {
@@ -125,6 +101,10 @@
         
         .empire-header {
             background: linear-gradient(135deg, var(--empire-blue), #0288D1);
+        }
+        
+        .neutral-header {
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
         }
         
         .dashboard-header {
@@ -226,40 +206,6 @@
             100% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
         }
         
-        /* Initial loader animations */
-        .initial-loader-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-        
-        .initial-logo {
-            color: #FFE81F;
-            text-align: center;
-            font-size: 3rem;
-            font-weight: bold;
-            font-family: 'Star Jedi', sans-serif;
-            transform-style: preserve-3d;
-            animation: initialLogoAnimation 4s linear forwards;
-            text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
-        }
-        
-        @keyframes initialLogoAnimation {
-            0% {
-                transform: rotateX(25deg) translateZ(0) scale(0.5);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            100% {
-                transform: rotateX(25deg) translateZ(300px) scale(2);
-                opacity: 0;
-            }
-        }
-        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .forms-grid {
@@ -277,13 +223,6 @@
     </style>
 </head>
 <body>
-    <!-- Initial loading animation -->
-    <div id="initial-loader">
-        <div class="initial-loader-content">
-            <div class="initial-logo">AMOR STRIKES BACK</div>
-        </div>
-    </div>
-
     <div class="star-wars-container">
         <div class="logo">Amor Strikes Back</div>
         <div class="subtitle">A New Hope for Family Budget Management</div>
@@ -356,16 +295,16 @@
         <!-- Dashboard Links -->
         <div class="dashboard-section">
             <div class="dashboard-links">
-                <a href="DASHBOARD_URL" class="dashboard-link" id="dashboardLink" target="_blank">
+                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec" class="dashboard-link" id="dashboardLink" target="_blank">
                     <i class="fas fa-tachometer-alt"></i> Full Dashboard
                 </a>
-                <a href="DASHBOARD_URL?view=expenses" class="dashboard-link" id="expensesLink" target="_blank">
+                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=expenses" class="dashboard-link" id="expensesLink" target="_blank">
                     <i class="fas fa-receipt"></i> Expenses
                 </a>
-                <a href="DASHBOARD_URL?view=loans" class="dashboard-link" id="loansLink" target="_blank">
+                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=loans" class="dashboard-link" id="loansLink" target="_blank">
                     <i class="fas fa-hand-holding-dollar"></i> Loans
                 </a>
-                <a href="DASHBOARD_URL?view=categories" class="dashboard-link" id="categoriesLink" target="_blank">
+                <a href="loading.html?redirect=https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec?view=categories" class="dashboard-link" id="categoriesLink" target="_blank">
                     <i class="fas fa-pie-chart"></i> Categories
                 </a>
             </div>
