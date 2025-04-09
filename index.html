@@ -226,51 +226,13 @@
             100% { text-shadow: 0 0 10px rgba(255, 232, 31, 0.7); }
         }
         
-        /* Space background for initial loader */
-        .space-stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            perspective: 500px;
-            z-index: 1;
-        }
-        
-        .intro-star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: flyStars 5s linear;
-        }
-        
-        @keyframes flyStars {
-            0% {
-                transform: translateZ(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateZ(1000px);
-                opacity: 0;
-            }
-        }
-        
-        /* Initial loader content */
+        /* Initial loader animations */
         .initial-loader-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            z-index: 2;
         }
         
         .initial-logo {
@@ -280,21 +242,20 @@
             font-weight: bold;
             font-family: 'Star Jedi', sans-serif;
             transform-style: preserve-3d;
-            animation: initialLogoAnimation 3.5s ease-in forwards;
+            animation: initialLogoAnimation 4s linear forwards;
             text-shadow: 0 0 10px rgba(255, 232, 31, 0.7);
         }
         
         @keyframes initialLogoAnimation {
             0% {
-                transform: rotateX(25deg) translateZ(0) scale(1.5);
+                transform: rotateX(25deg) translateZ(0) scale(0.5);
+                opacity: 0;
+            }
+            20% {
                 opacity: 1;
             }
-            85% {
-                transform: rotateX(25deg) translateZ(-400px) scale(0.3);
-                opacity: 0.7;
-            }
             100% {
-                transform: rotateX(25deg) translateZ(-600px) scale(0.1);
+                transform: rotateX(25deg) translateZ(300px) scale(2);
                 opacity: 0;
             }
         }
@@ -318,7 +279,6 @@
 <body>
     <!-- Initial loading animation -->
     <div id="initial-loader">
-        <div class="space-stars" id="space-stars"></div>
         <div class="initial-loader-content">
             <div class="initial-logo">AMOR STRIKES BACK</div>
         </div>
@@ -396,16 +356,16 @@
         <!-- Dashboard Links -->
         <div class="dashboard-section">
             <div class="dashboard-links">
-                <a href="#" class="dashboard-link" id="dashboardLink" target="_blank">
+                <a href="DASHBOARD_URL" class="dashboard-link" id="dashboardLink" target="_blank">
                     <i class="fas fa-tachometer-alt"></i> Full Dashboard
                 </a>
-                <a href="#" class="dashboard-link" id="expensesLink" target="_blank">
+                <a href="DASHBOARD_URL?view=expenses" class="dashboard-link" id="expensesLink" target="_blank">
                     <i class="fas fa-receipt"></i> Expenses
                 </a>
-                <a href="#" class="dashboard-link" id="loansLink" target="_blank">
+                <a href="DASHBOARD_URL?view=loans" class="dashboard-link" id="loansLink" target="_blank">
                     <i class="fas fa-hand-holding-dollar"></i> Loans
                 </a>
-                <a href="#" class="dashboard-link" id="categoriesLink" target="_blank">
+                <a href="DASHBOARD_URL?view=categories" class="dashboard-link" id="categoriesLink" target="_blank">
                     <i class="fas fa-pie-chart"></i> Categories
                 </a>
             </div>
@@ -421,31 +381,6 @@
     <script>
         // Dashboard Web App URL - Replace with your actual Web App URL
         const DASHBOARD_URL = "https://script.google.com/macros/s/AKfycbypyzzIRpcmO6Q01bimkBc6-vC-ab32I0HHrqILgaRT4GhEGCe7E2v4YpTKCXwKieA6mA/exec";
-        
-        // Create stars for intro animation
-        const spaceStars = document.getElementById('space-stars');
-        const starCount = 200;
-        
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.className = 'intro-star';
-            
-            // Random position
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            
-            // Random size
-            const size = Math.random() * 2 + 1;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            
-            // Random animation delay - keep within our 3.5 second window
-            const delay = Math.random() * 1.5;
-            star.style.animationDelay = `${delay}s`;
-            star.style.animationDuration = `${3.5 - delay}s`;
-            
-            spaceStars.appendChild(star);
-        }
         
         // Initialize dashboard links
         document.addEventListener('DOMContentLoaded', function() {
