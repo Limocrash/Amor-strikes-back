@@ -1,0 +1,163 @@
+# GitHub Branching Workflow Guide
+
+This document outlines the branching strategy for the Family Budget System project.
+
+## Branch Structure
+
+The project uses a three-branch model:
+
+1. **`main`** - Production branch (live site)
+2. **`sandbox`** - Development and testing branch
+3. **`lkg`** (Last Known Good) - Stable fallback version
+
+## Deployment URLs
+
+- Main (Production): `https://limocrash.github.io/Amor-strikes-back/`
+- Sandbox (Development): `https://limocrash.github.io/Amor-strikes-back/sandbox/`
+- LKG (Stable Fallback): `https://limocrash.github.io/Amor-strikes-back/lkg/`
+
+## Workflow Process
+
+### Initial Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Limocrash/Amor-strikes-back.git
+cd Amor-strikes-back
+
+# Create the sandbox branch
+git checkout -b sandbox
+
+# Create the LKG branch from main
+git checkout main
+git checkout -b lkg
+git push -u origin lkg
+
+# Return to sandbox for development
+git checkout sandbox
+```
+
+### Daily Development Workflow
+
+```bash
+# Start on the sandbox branch for new work
+git checkout sandbox
+
+# Make your changes
+# ... edit files ...
+
+# Commit your changes with a descriptive message
+git add .
+git commit -m "Add feature: Description of what you added or fixed"
+
+# Push to update the sandbox environment
+git push origin sandbox
+```
+
+### Updating Main (Production)
+
+When you're ready to update the production site:
+
+```bash
+# First, update the LKG branch with current main
+git checkout main
+git checkout lkg
+git merge main
+git push origin lkg
+
+# Now update main with your changes from sandbox
+git checkout main
+git merge sandbox
+git push origin main
+```
+
+## Common Tasks
+
+### Creating a New Feature Branch
+
+For complex features, create a feature branch from sandbox:
+
+```bash
+git checkout sandbox
+git checkout -b feature/my-new-feature
+# Make changes
+git add .
+git commit -m "Add feature: My new feature description"
+git push origin feature/my-new-feature
+```
+
+Then merge into sandbox when ready:
+
+```bash
+git checkout sandbox
+git merge feature/my-new-feature
+git push origin sandbox
+```
+
+### Rolling Back to LKG
+
+If something breaks in production:
+
+```bash
+git checkout main
+git reset --hard lkg
+git push --force origin main
+```
+
+### Updating the CHANGELOG.md
+
+1. Always update the CHANGELOG.md file with your changes
+2. Follow the Keep a Changelog format
+3. Put unreleased changes in the [Unreleased] section
+4. Move unreleased changes to a version section when releasing
+
+## Git Commands Cheat Sheet
+
+### Basic Commands
+
+```bash
+# Check current status
+git status
+
+# View commit history
+git log --oneline --graph --decorate --all
+
+# Switch branches
+git checkout branch-name
+
+# Pull latest changes
+git pull origin branch-name
+
+# Create and switch to a new branch
+git checkout -b new-branch-name
+
+# Discard all local changes
+git reset --hard HEAD
+```
+
+### Advanced Commands
+
+```bash
+# View differences between branches
+git diff branch1..branch2
+
+# Cherry-pick a specific commit
+git cherry-pick commit-hash
+
+# Stash changes temporarily
+git stash
+git stash pop  # Apply and remove the stashed changes
+
+# Tag a release
+git tag -a v1.0.0 -m "Version 1.0.0"
+git push origin v1.0.0
+```
+
+## Best Practices
+
+1. **Commit Often**: Make small, focused commits with clear messages
+2. **Update Regularly**: Pull changes frequently to stay in sync
+3. **Test Before Merging**: Always test in sandbox before updating main
+4. **Document Changes**: Update the CHANGELOG.md with each significant change
+5. **Use LKG Wisely**: Update LKG only when main is confirmed stable
+6. **Meaningful Commit Messages**: Use prefixes like "Add:", "Fix:", "Change:", "Refactor:"
